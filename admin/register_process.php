@@ -8,9 +8,13 @@ $user = new User();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $errors = [];
 
+    $fullname = $_POST['full_name'];
     $login = filter_var(trim($_POST['login']), FILTER_VALIDATE_EMAIL);
     $password = $_POST['password'];
 
+    if (!$fullname) {
+        $errors[] = "Vous devez renseignez votre Nom et prenom.";
+    }
     if (!$login) {
         $errors[] = "Email invalide.";
     }
@@ -21,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $user->setLogin($login);  
         $user->setPassword($password);  
+        $user->setFullName($fullname);  
 
         $registerResult = $user->register();
 

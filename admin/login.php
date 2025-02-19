@@ -10,6 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -18,24 +19,30 @@ if (session_status() === PHP_SESSION_NONE) {
             padding: 0;
             box-sizing: border-box;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            
         }
         h2 {
+            font-family: "shadows into light"; 
             font-size: 24px;
             margin-top: 60px;
-            color: #333;
+            color: black;
             margin-bottom: 0;
         }
         form {
-            background-color: #fff;
+            background: rgba(53, 43, 43, 0.326);
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            margin-top: 40px;
+            /* margin-top: 40px; */
+            margin: 40px 0 0 0;
+            
+        }
+        .maConnexion {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         ul {
             list-style: none;
@@ -49,7 +56,7 @@ if (session_status() === PHP_SESSION_NONE) {
             display: block;
             font-size: 14px;
             margin-bottom: 5px;
-            color: #333;
+            color: whitesmoke;
         }
         input {
             width: 100%;
@@ -78,25 +85,21 @@ if (session_status() === PHP_SESSION_NONE) {
         button:hover {
             background-color: #0056b3;
         }
-        .nav-auth {
-            padding: 20px;
-            background: rgb(18,21,43);
-            color: white;
-            width: 100%;
+        .btn-connexion {
+            margin-top: 20px;
         }
-        .nav-auth a {
-            color: white;
-            text-decoration: none;
-            letter-spacing: 1px;
-            font-size: 1.2rem;
+        span {
+            /* text-decoration: underline ; */
+            color: yellow;
+            font-family: "shadows into light";
+            font-size: 1.5rem;
         }
+        
     </style>
 </head>
 <body>
 
-    <div class="nav-auth">
-        <a href="../public/index.php">Accueil</a>
-    </div>
+    <?php include '../includes/header.php'; ?>
 
     <h2>Connexion</h2>
 
@@ -110,17 +113,22 @@ if (session_status() === PHP_SESSION_NONE) {
         unset($_SESSION['login_errors']);
     }
     ?>
+    <div class="maConnexion">
+        <form action="login_process.php" method="POST">
+            
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="login" required value="<?= $_SESSION['old_login']['login'] ?? '' ?>">
+            <?php unset($_SESSION['old_login']); ?>
 
-    <form action="login_process.php" method="POST">
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required value="<?= $_SESSION['old_login']['email'] ?? '' ?>">
-        <?php unset($_SESSION['old_login']); ?>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required>
 
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
+            <button class="btn-connexion" type="submit">Se connecter</button>
+        </form>
+    </div>
+    
+    <p>Vous n'avez pas de compte ? <a href="register.php"><span>Inscrivez-vous ici</span></a></p>
 
-        <button type="submit">Se connecter</button>
-    </form>
 
 </body>
 </html>
