@@ -39,7 +39,7 @@
             margin: 10px 0;
             border: none;
             border-bottom: 2px solid white;
-            background-color:rgba(244, 244, 249, 0.77);
+            background-color: #f4f4f9;
             color: black;
             outline: none;
         }
