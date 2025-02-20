@@ -19,7 +19,7 @@ if (!isset($_SESSION['user_id'])) {
     <style>
       body {
         font-family: 'Poppins', sans-serif;
-        background-color: #f4f4f9;
+        background: rgba(53, 43, 43, 0.326);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -66,7 +66,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="container">
       <h1>Accès Refusé</h1>
       <p>Vous devez être inscrit pour accéder à cette page.</p>
-      <a href="login.php" class="login-btn">Se connecter</a>
+      <a href="../admin/login.php" class="login-btn">Se connecter</a>
     </div>
 
   </body>

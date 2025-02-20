@@ -1,10 +1,15 @@
 <?php
 require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/../classes/User.php';
+require_once __DIR__ . '/../classes/comment.php';
 
 
 $user = new User();
 $user->setId($_SESSION['user_id']);
+
+$commentObj = new Comment();
+$userComments = $commentObj->getUserComments($_SESSION['user_id']);
+
 
 
 $user->login($_SESSION['login'], '');
@@ -124,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       background: rgba(128, 0, 0, 0.7);
       border: none;
     }
+  
     h2 {
       margin-left: 150px;
       text-transform: capitalize;
@@ -135,6 +141,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       font-weight: 300;
       letter-spacing: 1px;
     }
+    .comment {
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid yellow;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #222;
+    color: white;
+}
+
+  .comments {
+      width: 100%;
+      margin: 0 auto;
+      padding: 15px;
+      line-height: 20px;
+      font-weight: normal;
+  }
+
+  .comment-date {
+      width: 100%;
+      margin: 5px auto;
+      padding-left: 15px;
+      color: yellow;
+      font-size: 14px;
+  }
+  .comment p {
+    margin: 0;
+  }
+
+  .comment a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      border-radius: 3px;
+      text-decoration: none;
+      color: white;
+  }
+
+  .comment a:hover {
+      text-decoration: underline;
+  }
+
+  .comment a:nth-child(2) {
+      background: rgba(0, 128, 0, 0.7);
+  }
+
+  .comment a:nth-child(3) {
+      background: rgba(128, 0, 0, 0.7);
+  }
+
+    
   </style>
 </head>
 
@@ -163,15 +220,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
   <section class="msge">
-    <h2>mes messages</h2>
-    <div class="comment">
-      <div>
-      <span>Lamine Diallo</span>
-      <span>posté le 19/02/2025</span> 
-      </div>
-     
-    </div>
-  </section>
+    <h2>Mes commentaires</h2>
+    <?php if (!empty($userComments)) : ?>
+        <?php foreach ($userComments as $comment) : ?>
+            <div class="comment">
+                <p><?php echo htmlspecialchars($comment['comment']); ?></p>
+                <span>Posté le <?php echo $comment['date']; ?></span>
+                <a href="../public/edit_comment.php?id=<?php echo $comment['id']; ?>">Modifier</a>
+                <a href="../public/delete_comment.php?id=<?php echo $comment['id']; ?>" onclick="return confirm('Supprimer ce commentaire ?');">Supprimer</a>
+            </div>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <p>Aucun commentaire posté.</p>
+    <?php endif; ?>
+</section>
+
 
     <button class="btn-delete">  <a href="logout.php">Se déconnecter</a>
     </button>
