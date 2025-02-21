@@ -1,5 +1,10 @@
 <?php
-require_once __DIR__ . '/../admin/auth.php';
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+  
+}
+
+// require_once __DIR__ . '/../admin/auth.php';
 require_once __DIR__ . '/../classes/Comment.php';
 
 $comment = new Comment();
@@ -110,13 +115,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
     <h1>Livre d'Or</h1>
 
-    <!-- Formulaire de recherche -->
     <form method="GET" action="livre-or.php">
         <input type="text" name="search" placeholder="Rechercher un commentaire" value="<?php echo htmlspecialchars($searchTerm); ?>">
         <button class="search-btn" type="submit">Rechercher</button>
     </form>
 
-    <!-- Affichage des commentaires -->
     <?php foreach ($comments as $com): ?>
         <div class="comment">
             <p class="comment-date"><strong><?php echo htmlspecialchars($com['full_name']); ?></strong> - 
@@ -135,11 +138,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <?php endif; ?>
     </div>
 
-    <div class="comment-link">
-      <?php if ($isLoggedIn): ?>
+    <?php if ($isLoggedIn): ?>
+      <div class="comment-link">
           <a href="commentaires.php">Ajouter un commentaire</a>
-      <?php endif; ?>
-    </div>
+      </div>
+   <?php endif; ?>
+
     
 </body>
 </html>

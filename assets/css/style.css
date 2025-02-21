@@ -81,12 +81,13 @@ p {
   width: 70%;
   margin: 50px auto;
   line-height: 30px;
-  color: blanchedalmond;
+  color: white;
   letter-spacing: 1px;
   font-weight: 300 ;
 }
 .main-text {
     background: rgba(53, 43, 43, 0.326);
+    font-size: 1.2rem;
 
 }
 button {
@@ -104,8 +105,11 @@ button {
 .btn-main {
   transition: background .5s ease;
 }
+.btn-main a:hover {
+  color: black;
+}
 .btn-main:hover{
-  background: rgba(53, 43, 43, 0.326);
+  background: yellow;
   color: black;
   border: none;
 }
